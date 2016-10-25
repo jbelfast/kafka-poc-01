@@ -61,27 +61,28 @@ class Consumer implements Runnable {
 
                     switch (message.type) {
                         case "test":
-                            def latency = (long) ((System.nanoTime() * 1e-9 - message.t) * 1000)
+                            def latency = System.currentTimeMillis() - (long) message.t
                             stats.recordValue(latency)
                             global.recordValue(latency)
                             break
                         case "marker":
-                            logger.info String.format("%d messages received in period, latency(min, max, avg, 99%%) = %d, %d, %.1f, %d (ms)",
+                            logger.info String.format("%d messages received in period, latency(min, max, avg, 1%%, 99%%) = %d, %d, %.1f, %d, %d (ms)",
                                     stats.getTotalCount(),
-                                    stats.getValueAtPercentile(0), stats.getValueAtPercentile(100),
-                                    stats.getMean(), stats.getValueAtPercentile(99))
-                            logger.info String.format("%d messages received overall, latency(min, max, avg, 99%%) = %d, %d, %.1f, %d (ms)",
+                                    //stats.getValueAtPercentile(0), stats.getValueAtPercentile(100),
+                                    stats.getMinValue(), stats.getMaxValue(),
+                                    stats.getMean(), stats.getValueAtPercentile(1), stats.getValueAtPercentile(99))
+                            logger.info String.format("%d messages received overall, latency(min, max, avg, 1%%, 99%%) = %d, %d, %.1f, %d, %d (ms)",
                                     global.getTotalCount(),
                                     global.getValueAtPercentile(0), global.getValueAtPercentile(100),
-                                    global.getMean(), global.getValueAtPercentile(99))
+                                    global.getMean(), global.getValueAtPercentile(1), global.getValueAtPercentile(99))
                             logger.info message
                             stats.reset()
                             break
                         default:
-                            logger.warn String.format("Not valid message %s%n", message)
+                            logger.warn String.format("Not valid message %s", message)
                     }
                 } catch (Exception e) {
-                    logger.error e.message
+                    logger.error String.format("%s has errors and cannot be parsed: %s", record.value(), e.message)
                 }
 
             })
