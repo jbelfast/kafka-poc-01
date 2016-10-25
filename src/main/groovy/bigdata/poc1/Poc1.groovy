@@ -6,9 +6,9 @@ package bigdata.poc1
 class Poc1 {
     static void main(String[] args) {
 
-        def bootstrapServers = args.length == 0 ? "localhost" : args[0]
+        def bootstrapServers = args.length < 1 ? "localhost" : args[0]
 
-        def topic = "POC2"
+        def topic = args.length < 2 ? "POC1" : args[1]
 
         def producer = new Producer(topic: topic, bootstrapServers: bootstrapServers)
         def consumer = new Consumer(topic: topic, bootstrapServers: bootstrapServers)

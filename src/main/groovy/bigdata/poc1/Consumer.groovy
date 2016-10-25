@@ -27,10 +27,10 @@ class Consumer implements Runnable {
 
     @Override
     void run() {
-        consumeMessagesFrom()
+        consumeMessages()
     }
 
-    private def consumeMessagesFrom() {
+    private def consumeMessages() {
         def stats = new Histogram(1, 10000000, 2)
         def global = new Histogram(1, 10000000, 2)
 
