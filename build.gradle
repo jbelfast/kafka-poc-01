@@ -1,4 +1,4 @@
-group 'com.itexico.bigdata'
+group 'bigdata'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'groovy'
@@ -12,9 +12,7 @@ repositories {
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
-    //compile group: 'org.apache.kafka', name: 'kafka_2.10', version: '0.8.2.0' //Remote
-    // compile group: 'org.apache.kafka', name: 'kafka_2.10', version: '0.9.0.1'
-    compile group: 'org.apache.kafka', name: 'kafka_2.11', version: '0.9.0.1' //Local
+    compile group: 'org.apache.kafka', name: 'kafka_2.11', version: '0.10.0.1'
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
     compile group: 'org.hdrhistogram', name: 'HdrHistogram', version: '2.1.9'
 
