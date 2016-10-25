@@ -13,7 +13,7 @@ import org.apache.log4j.Logger
  */
 class Consumer implements Runnable {
 
-    static def logger = Logger.getLogger(Producer.class)
+    static def logger = Logger.getLogger(Consumer.class)
 
     def topic = ""
 
@@ -79,7 +79,6 @@ class Consumer implements Runnable {
                             break
                         default:
                             logger.warn String.format("Not valid message %s%n", message)
-                            break
                     }
                 } catch (Exception e) {
                     logger.error e.message

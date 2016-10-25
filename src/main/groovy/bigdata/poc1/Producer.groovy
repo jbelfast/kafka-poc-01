@@ -27,7 +27,7 @@ class Producer implements Runnable {
         produceMessages()
     }
 
-    private def produceMessages()   {
+    private def produceMessages() {
         Resources.getResource("producer.props").withInputStream { stream ->
             properties.load(stream)
             properties.setProperty("bootstrap.servers", bootstrapServers)
